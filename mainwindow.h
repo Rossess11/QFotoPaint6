@@ -78,6 +78,11 @@ private slots:
     void on_actionPinchar_estirar_triggered();
     void on_actionMatiz_Saturacion_Luminosidad_triggered();
     void on_actionEspectro_triggered();
+    void on_actionCopiar_al_portapapeles_triggered();
+    void on_actionR_G_triggered();
+    void on_actionR_B_triggered();
+    void on_actionG_B_triggered();
+    void on_actionMostrar_informaci_n_triggered();
 };
 
 extern MainWindow *w;

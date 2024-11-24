@@ -495,3 +495,63 @@ void MainWindow::on_actionEspectro_triggered()
     }
 }
 
+
+void MainWindow::on_actionCopiar_al_portapapeles_triggered()
+{
+    if(foto_activa() != -1 && primera_libre() != -1) {
+        copiar_al_portapapeles(foto_activa());
+    }
+}
+
+void MainWindow::on_actionR_G_triggered()
+{
+    if (foto_activa() != -1) {
+        int fa = foto_activa();
+        if (fa != -1) {
+            int pl = comprobar_primera_libre();
+            if (pl != -1) {
+                int num_celdas = 50;
+                ver_histograma_2d(fa, 0, 1, pl, num_celdas); // R-G
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_actionR_B_triggered()
+{
+    if (foto_activa() != -1) {
+        int fa = foto_activa();
+        if (fa != -1) {
+            int pl = comprobar_primera_libre();
+            if (pl != -1) {
+                int num_celdas = 50;
+                ver_histograma_2d(fa, 0, 2, pl, num_celdas); // R-B
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_actionG_B_triggered()
+{
+    if (foto_activa() != -1) {
+        int fa = foto_activa();
+        if (fa != -1) {
+            int pl = comprobar_primera_libre();
+            if (pl != -1) {
+                int num_celdas = 50;
+                ver_histograma_2d(fa, 1, 2, pl, num_celdas); // G-B
+            }
+        }
+    }
+}
+
+
+void MainWindow::on_actionMostrar_informaci_n_triggered()
+{
+    if(foto_activa() != -1 && primera_libre() != -1) {
+        mostrar_info_imagen(foto_activa());
+    }
+}
+

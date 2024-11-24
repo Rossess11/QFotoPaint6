@@ -69,6 +69,11 @@ public:
     QAction *actionPinchar_estirar;
     QAction *actionMatiz_Saturacion_Luminosidad;
     QAction *actionEspectro;
+    QAction *actionCopiar_al_portapapeles;
+    QAction *actionR_G;
+    QAction *actionR_B;
+    QAction *actionG_B;
+    QAction *actionMostrar_informaci_n;
     QWidget *centralWidget;
     QToolButton *toolButton;
     QToolButton *toolButton_2;
@@ -89,6 +94,7 @@ public:
     QMenu *menuEdici_n;
     QMenu *menuOpciones;
     QMenu *menuVer_histograma;
+    QMenu *menuVer_histograma_2d;
     QMenu *menuHerramientas;
     QMenu *menuTransformar;
     QMenu *menuRotar;
@@ -194,6 +200,16 @@ public:
         actionMatiz_Saturacion_Luminosidad->setObjectName("actionMatiz_Saturacion_Luminosidad");
         actionEspectro = new QAction(MainWindow);
         actionEspectro->setObjectName("actionEspectro");
+        actionCopiar_al_portapapeles = new QAction(MainWindow);
+        actionCopiar_al_portapapeles->setObjectName("actionCopiar_al_portapapeles");
+        actionR_G = new QAction(MainWindow);
+        actionR_G->setObjectName("actionR_G");
+        actionR_B = new QAction(MainWindow);
+        actionR_B->setObjectName("actionR_B");
+        actionG_B = new QAction(MainWindow);
+        actionG_B->setObjectName("actionG_B");
+        actionMostrar_informaci_n = new QAction(MainWindow);
+        actionMostrar_informaci_n->setObjectName("actionMostrar_informaci_n");
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName("centralWidget");
         toolButton = new QToolButton(centralWidget);
@@ -306,7 +322,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName("menuBar");
-        menuBar->setGeometry(QRect(0, 0, 600, 26));
+        menuBar->setGeometry(QRect(0, 0, 600, 22));
         menuArchivo = new QMenu(menuBar);
         menuArchivo->setObjectName("menuArchivo");
         menuEdici_n = new QMenu(menuBar);
@@ -315,6 +331,8 @@ public:
         menuOpciones->setObjectName("menuOpciones");
         menuVer_histograma = new QMenu(menuEdici_n);
         menuVer_histograma->setObjectName("menuVer_histograma");
+        menuVer_histograma_2d = new QMenu(menuEdici_n);
+        menuVer_histograma_2d->setObjectName("menuVer_histograma_2d");
         menuHerramientas = new QMenu(menuBar);
         menuHerramientas->setObjectName("menuHerramientas");
         menuTransformar = new QMenu(menuBar);
@@ -360,12 +378,18 @@ public:
         menuEdici_n->addAction(actionCopiar_a_nueva);
         menuEdici_n->addAction(menuVer_histograma->menuAction());
         menuEdici_n->addAction(menuOpciones->menuAction());
+        menuEdici_n->addAction(actionCopiar_al_portapapeles);
+        menuEdici_n->addAction(menuVer_histograma_2d->menuAction());
+        menuEdici_n->addAction(actionMostrar_informaci_n);
         menuOpciones->addAction(actionColor_del_pincel);
         menuOpciones->addAction(actionPreguntar_si_guardar);
         menuVer_histograma->addAction(actionGrises);
         menuVer_histograma->addAction(actionRojo);
         menuVer_histograma->addAction(actionVerde);
         menuVer_histograma->addAction(actionAzul);
+        menuVer_histograma_2d->addAction(actionR_G);
+        menuVer_histograma_2d->addAction(actionR_B);
+        menuVer_histograma_2d->addAction(actionG_B);
         menuHerramientas->addAction(actionPunto);
         menuHerramientas->addAction(actionArcoiris);
         menuHerramientas->addAction(actionLinea);
@@ -445,6 +469,11 @@ public:
         actionPinchar_estirar->setText(QCoreApplication::translate("MainWindow", "Pinchar/estirar...", nullptr));
         actionMatiz_Saturacion_Luminosidad->setText(QCoreApplication::translate("MainWindow", "Matiz/Saturacion/Luminosidad", nullptr));
         actionEspectro->setText(QCoreApplication::translate("MainWindow", "Espectro", nullptr));
+        actionCopiar_al_portapapeles->setText(QCoreApplication::translate("MainWindow", "Copiar al portapapeles", nullptr));
+        actionR_G->setText(QCoreApplication::translate("MainWindow", "R-G", nullptr));
+        actionR_B->setText(QCoreApplication::translate("MainWindow", "R-B", nullptr));
+        actionG_B->setText(QCoreApplication::translate("MainWindow", "G-B", nullptr));
+        actionMostrar_informaci_n->setText(QCoreApplication::translate("MainWindow", "Mostrar informaci\303\263n", nullptr));
         toolButton->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         toolButton_2->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -469,6 +498,7 @@ public:
         menuEdici_n->setTitle(QCoreApplication::translate("MainWindow", "Edici\303\263n", nullptr));
         menuOpciones->setTitle(QCoreApplication::translate("MainWindow", "Opciones", nullptr));
         menuVer_histograma->setTitle(QCoreApplication::translate("MainWindow", "Ver histograma", nullptr));
+        menuVer_histograma_2d->setTitle(QCoreApplication::translate("MainWindow", "Ver histograma 2d", nullptr));
         menuHerramientas->setTitle(QCoreApplication::translate("MainWindow", "Herramientas", nullptr));
         menuTransformar->setTitle(QCoreApplication::translate("MainWindow", "Transformar", nullptr));
         menuRotar->setTitle(QCoreApplication::translate("MainWindow", "Rotar", nullptr));

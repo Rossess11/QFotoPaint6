@@ -391,7 +391,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -429,11 +429,22 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionVerde"/>
      <addaction name="actionAzul"/>
     </widget>
+    <widget class="QMenu" name="menuVer_histograma_2d">
+     <property name="title">
+      <string>Ver histograma 2d</string>
+     </property>
+     <addaction name="actionR_G"/>
+     <addaction name="actionR_B"/>
+     <addaction name="actionG_B"/>
+    </widget>
     <addaction name="actionSeleccionar_todo"/>
     <addaction name="separator"/>
     <addaction name="actionCopiar_a_nueva"/>
     <addaction name="menuVer_histograma"/>
     <addaction name="menuOpciones"/>
+    <addaction name="actionCopiar_al_portapapeles"/>
+    <addaction name="menuVer_histograma_2d"/>
+    <addaction name="actionMostrar_informaci_n"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="title">
@@ -727,6 +738,31 @@ p, li { white-space: pre-wrap; }
   <action name="actionEspectro">
    <property name="text">
     <string>Espectro</string>
+   </property>
+  </action>
+  <action name="actionCopiar_al_portapapeles">
+   <property name="text">
+    <string>Copiar al portapapeles</string>
+   </property>
+  </action>
+  <action name="actionR_G">
+   <property name="text">
+    <string>R-G</string>
+   </property>
+  </action>
+  <action name="actionR_B">
+   <property name="text">
+    <string>R-B</string>
+   </property>
+  </action>
+  <action name="actionG_B">
+   <property name="text">
+    <string>G-B</string>
+   </property>
+  </action>
+  <action name="actionMostrar_informaci_n">
+   <property name="text">
+    <string>Mostrar información</string>
    </property>
   </action>
  </widget>

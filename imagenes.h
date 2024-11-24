@@ -184,7 +184,15 @@ void ver_matiz_sat_lum(int nfoto, int matiz, double sat, double lum, bool guarda
 
 void espectro(int nfoto, int nres);
 // Calcula la magnitud de la transformada
-//
+
+void copiar_al_portapapeles(int nfoto);
+// Copiar el roi de la imagen actual al portapapeles de windows
+
+void ver_histograma_2d(int nfoto, int canal1, int canal2, int nres, int bins = 32);
+// Mostrar histogramas 2d agrupando canales de 2 en 2.
+
+void mostrar_info_imagen(int nfoto);
+// Mostrar información de la imagen
 
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1

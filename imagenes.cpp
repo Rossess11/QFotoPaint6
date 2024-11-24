@@ -7,6 +7,8 @@
 #include <QFileDialog>
 #include <assert.h>
 #include <opencv2/core.hpp>
+#include <QClipboard>
+#include <QGuiApplication>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -958,7 +960,17 @@ void espectro(int nfoto, int nres) {
     res(roi1).copyTo(res2(roi2));
 
     crear_nueva(nres, res2);
+}
 
+//---------------------------------------------------------------------------
+
+void copiar_al_portapapeles(int nfoto) {
+    assert(nfoto >= 0 && nfoto < MAX_VENTANAS && foto[nfoto].usada);
+    Mat roi = foto[nfoto].img(foto[nfoto].roi);
+    cvtColor(roi, roi, COLOR_BGR2RGB); // Convert BGR to RGB
+    QImage qimg(roi.data, roi.cols, roi.rows, roi.step, QImage::Format_RGB888);
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setImage(qimg);
 }
 
 //---------------------------------------------------------------------------
@@ -970,3 +982,70 @@ string Lt1(string cadena)
 }
 
 //---------------------------------------------------------------------------
+
+
+void ver_histograma_2d(int nfoto, int canal1, int canal2, int nres, int bins) {
+    Mat hist;
+    int canales[] = {canal1, canal2};
+    int histSize[] = {bins, bins};
+    float rango[] = {0, 256};
+    const float* rangos[] = {rango, rango};
+
+    calcHist(&foto[nfoto].img, 1, canales, noArray(), hist, 2, histSize, rangos, true, false);
+    normalize(hist, hist, 0, 255, NORM_MINMAX);
+
+    Mat histImage = Mat::zeros(bins, bins, CV_8UC3);
+    for (int i = 0; i < bins; i++) {
+        for (int j = 0; j < bins; j++) {
+            float binVal = hist.at<float>(i, j);
+            histImage.at<Vec3b>(i, j) = Vec3b::all(binVal);
+        }
+    }
+
+    resize(histImage, histImage, Size(512, 512), 0, 0, INTER_NEAREST);
+    applyColorMap(histImage, histImage, COLORMAP_JET);
+
+    // Add scale values
+    int margin = 50;
+    Mat histImageWithScale(histImage.rows + margin, histImage.cols + margin, CV_8UC3, Scalar(255, 255, 255));
+    histImage.copyTo(histImageWithScale(Rect(margin, 0, histImage.cols, histImage.rows)));
+
+    for (int i = 0; i <= bins; i += bins / 8) {
+        int pos = i * 512 / bins;
+        putText(histImageWithScale, to_string(i * 256 / bins), Point(margin + pos, histImage.rows + 20), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0));
+        putText(histImageWithScale, to_string(i * 256 / bins), Point(5, histImage.rows - pos), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0));
+    }
+
+    crear_nueva(nres, histImageWithScale);
+}
+
+//---------------------------------------------------------------------------
+
+void mostrar_info_imagen(int nfoto) {
+    assert(nfoto >= 0 && nfoto < MAX_VENTANAS && foto[nfoto].usada);
+
+    Mat img = foto[nfoto].img;
+    int width = img.cols;
+    int height = img.rows;
+    int depth = img.depth();
+    int channels = img.channels();
+    size_t memory = img.total() * img.elemSize();
+
+    Scalar mean_color = mean(img);
+    Vec3b mean_color_bgr(mean_color[0], mean_color[1], mean_color[2]);
+
+    QString info = QString("Tamaño: %1x%2\nProfundidad: %3\nCanales: %4\nMemoria: %5 bytes\nColor medio (BGR): [%6, %7, %8]")
+                   .arg(width)
+                   .arg(height)
+                   .arg(depth)
+                   .arg(channels)
+                   .arg(memory)
+                   .arg(mean_color_bgr[0])
+                   .arg(mean_color_bgr[1])
+                   .arg(mean_color_bgr[2]);
+
+    QMessageBox::information(w, "Información de la imagen", info);
+
+    Mat color_representation(100, 100, CV_8UC3, mean_color_bgr);
+    imshow("Color medio", color_representation);
+}
