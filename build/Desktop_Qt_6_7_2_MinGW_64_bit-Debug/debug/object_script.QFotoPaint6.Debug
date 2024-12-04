@@ -7,6 +7,7 @@ debug/imagenes.o
 debug/dialognueva.o
 debug/brillocontraste.o
 debug/matsatlum.o
+debug/perspectiva.o
 debug/pincharestirar.o
 debug/suavizados.o
 debug/video.o
@@ -22,6 +23,7 @@ debug/moc_capturardevideo.o
 debug/moc_dialognueva.o
 debug/moc_brillocontraste.o
 debug/moc_matsatlum.o
+debug/moc_perspectiva.o
 debug/moc_pincharestirar.o
 debug/moc_suavizados.o
 debug/moc_rotaravideo.o

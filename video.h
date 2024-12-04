@@ -35,4 +35,7 @@ void mostrar_camara (void);
 void capturar_de_camara (int nres);
 //Captura de la camara y crea la imagen en nres
 
+void suavizado_temporal(string nombre);
+//Suavizado temporal de un video
+
 #endif // VIDEO_H

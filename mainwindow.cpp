@@ -22,6 +22,7 @@ using namespace cv;
 #include "bajorrelieve.h"
 #include "pincharestirar.h"
 #include "matsatlum.h"
+#include "perspectiva.h"
 
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos WEBP (*.webp);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
@@ -552,6 +553,38 @@ void MainWindow::on_actionMostrar_informaci_n_triggered()
 {
     if(foto_activa() != -1 && primera_libre() != -1) {
         mostrar_info_imagen(foto_activa());
+    }
+}
+
+
+void MainWindow::on_actionPerspectiva_triggered()
+{
+    if(foto_activa()!=-1) {
+        /*Point2f no[4], nd[4];
+        int w = foto[0].img.cols;
+        int h = foto[0].img.rows;
+        no[0] = Point2f(0, 0);
+        no[1] = Point2d(w, 0);
+        no[2] = Point2f(w, h);
+        no[3] = Point2f(0, h);
+        w = foto[1].img.cols;
+        h = foto[1].img.rows;
+        nd[0] = Point2f(w*0.4, h*0.1);
+        nd[1] = Point2d(w*0.65, h*0.2);
+        nd[2] = Point2f(w*0.95, h*0.9);
+        nd[3] = Point2f(w*0.05, h*0.8);
+        ver_perspectiva(0, 1, no, nd);*/
+        Perspectiva pe;
+        pe.exec();
+    }
+}
+
+
+void MainWindow::on_actionSuavizado_temporal_triggered()
+{
+    QString nombre = QFileDialog::getSaveFileName();
+    if(!nombre.isEmpty()) {
+        suavizado_temporal(nombre.toLatin1().data());
     }
 }
 

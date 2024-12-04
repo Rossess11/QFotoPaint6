@@ -194,6 +194,9 @@ void ver_histograma_2d(int nfoto, int canal1, int canal2, int nres, int bins = 3
 void mostrar_info_imagen(int nfoto);
 // Mostrar información de la imagen
 
+void ver_perspectiva(int norig, int ndest, Point2f ptorig[4], Point2f ptdest[4], bool guardar = false);
+// Transformacion perpectiva...
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

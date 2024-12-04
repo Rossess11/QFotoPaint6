@@ -7,6 +7,7 @@ release/imagenes.o
 release/dialognueva.o
 release/brillocontraste.o
 release/matsatlum.o
+release/perspectiva.o
 release/pincharestirar.o
 release/suavizados.o
 release/video.o
@@ -22,6 +23,7 @@ release/moc_capturardevideo.o
 release/moc_dialognueva.o
 release/moc_brillocontraste.o
 release/moc_matsatlum.o
+release/moc_perspectiva.o
 release/moc_pincharestirar.o
 release/moc_suavizados.o
 release/moc_rotaravideo.o

@@ -48,7 +48,6 @@ public:
     QAction *actionRotar_180;
     QAction *actionGausiano;
     QAction *actionMedia;
-    QAction *actionV_deo_a_video;
     QAction *actionRotar_imagen;
     QAction *actionAcerca_de;
     QAction *actionImagen_media;
@@ -74,6 +73,8 @@ public:
     QAction *actionR_B;
     QAction *actionG_B;
     QAction *actionMostrar_informaci_n;
+    QAction *actionPerspectiva;
+    QAction *actionSuavizado_temporal;
     QWidget *centralWidget;
     QToolButton *toolButton;
     QToolButton *toolButton_2;
@@ -103,6 +104,7 @@ public:
     QMenu *menuV_deo;
     QMenu *menuImagen_a_v_deo;
     QMenu *menuV_deo_a_imagen;
+    QMenu *menuV_deo_a_video;
     QMenu *menuAyuda;
     QStatusBar *statusBar;
 
@@ -158,8 +160,6 @@ public:
         actionGausiano->setObjectName("actionGausiano");
         actionMedia = new QAction(MainWindow);
         actionMedia->setObjectName("actionMedia");
-        actionV_deo_a_video = new QAction(MainWindow);
-        actionV_deo_a_video->setObjectName("actionV_deo_a_video");
         actionRotar_imagen = new QAction(MainWindow);
         actionRotar_imagen->setObjectName("actionRotar_imagen");
         actionAcerca_de = new QAction(MainWindow);
@@ -210,6 +210,10 @@ public:
         actionG_B->setObjectName("actionG_B");
         actionMostrar_informaci_n = new QAction(MainWindow);
         actionMostrar_informaci_n->setObjectName("actionMostrar_informaci_n");
+        actionPerspectiva = new QAction(MainWindow);
+        actionPerspectiva->setObjectName("actionPerspectiva");
+        actionSuavizado_temporal = new QAction(MainWindow);
+        actionSuavizado_temporal->setObjectName("actionSuavizado_temporal");
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName("centralWidget");
         toolButton = new QToolButton(centralWidget);
@@ -322,7 +326,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName("menuBar");
-        menuBar->setGeometry(QRect(0, 0, 600, 22));
+        menuBar->setGeometry(QRect(0, 0, 600, 26));
         menuArchivo = new QMenu(menuBar);
         menuArchivo->setObjectName("menuArchivo");
         menuEdici_n = new QMenu(menuBar);
@@ -349,6 +353,8 @@ public:
         menuImagen_a_v_deo->setObjectName("menuImagen_a_v_deo");
         menuV_deo_a_imagen = new QMenu(menuV_deo);
         menuV_deo_a_imagen->setObjectName("menuV_deo_a_imagen");
+        menuV_deo_a_video = new QMenu(menuV_deo);
+        menuV_deo_a_video->setObjectName("menuV_deo_a_video");
         menuAyuda = new QMenu(menuBar);
         menuAyuda->setObjectName("menuAyuda");
         MainWindow->setMenuBar(menuBar);
@@ -404,6 +410,7 @@ public:
         menuTransformar->addAction(actionEscala_de_color);
         menuTransformar->addAction(actionMatiz_Saturacion_Luminosidad);
         menuTransformar->addAction(actionEspectro);
+        menuTransformar->addAction(actionPerspectiva);
         menuRotar->addAction(actionRotar_90);
         menuRotar->addAction(actionRotar_180);
         menuRotar->addAction(actionRotar_91);
@@ -415,9 +422,10 @@ public:
         menuSuavizado->addAction(actionMediana);
         menuV_deo->addAction(menuImagen_a_v_deo->menuAction());
         menuV_deo->addAction(menuV_deo_a_imagen->menuAction());
-        menuV_deo->addAction(actionV_deo_a_video);
+        menuV_deo->addAction(menuV_deo_a_video->menuAction());
         menuImagen_a_v_deo->addAction(actionRotar_imagen);
         menuV_deo_a_imagen->addAction(actionImagen_media);
+        menuV_deo_a_video->addAction(actionSuavizado_temporal);
         menuAyuda->addAction(actionAcerca_de);
 
         retranslateUi(MainWindow);
@@ -448,7 +456,6 @@ public:
         actionRotar_180->setText(QCoreApplication::translate("MainWindow", "Rotar 180\302\272", nullptr));
         actionGausiano->setText(QCoreApplication::translate("MainWindow", "Gausiano...", nullptr));
         actionMedia->setText(QCoreApplication::translate("MainWindow", "Media...", nullptr));
-        actionV_deo_a_video->setText(QCoreApplication::translate("MainWindow", "V\303\255deo a video", nullptr));
         actionRotar_imagen->setText(QCoreApplication::translate("MainWindow", "Rotar imagen...", nullptr));
         actionAcerca_de->setText(QCoreApplication::translate("MainWindow", "Acerca de...", nullptr));
         actionImagen_media->setText(QCoreApplication::translate("MainWindow", "Imagen media...", nullptr));
@@ -474,6 +481,8 @@ public:
         actionR_B->setText(QCoreApplication::translate("MainWindow", "R-B", nullptr));
         actionG_B->setText(QCoreApplication::translate("MainWindow", "G-B", nullptr));
         actionMostrar_informaci_n->setText(QCoreApplication::translate("MainWindow", "Mostrar informaci\303\263n", nullptr));
+        actionPerspectiva->setText(QCoreApplication::translate("MainWindow", "Perspectiva...", nullptr));
+        actionSuavizado_temporal->setText(QCoreApplication::translate("MainWindow", "Suavizado temporal...", nullptr));
         toolButton->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         toolButton_2->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -507,6 +516,7 @@ public:
         menuV_deo->setTitle(QCoreApplication::translate("MainWindow", "V\303\255deo", nullptr));
         menuImagen_a_v_deo->setTitle(QCoreApplication::translate("MainWindow", "Imagen a v\303\255deo", nullptr));
         menuV_deo_a_imagen->setTitle(QCoreApplication::translate("MainWindow", "V\303\255deo a imagen", nullptr));
+        menuV_deo_a_video->setTitle(QCoreApplication::translate("MainWindow", "V\303\255deo a video", nullptr));
         menuAyuda->setTitle(QCoreApplication::translate("MainWindow", "Ayuda", nullptr));
     } // retranslateUi
 

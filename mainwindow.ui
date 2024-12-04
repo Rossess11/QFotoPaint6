@@ -391,7 +391,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -477,6 +477,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionEscala_de_color"/>
     <addaction name="actionMatiz_Saturacion_Luminosidad"/>
     <addaction name="actionEspectro"/>
+    <addaction name="actionPerspectiva"/>
    </widget>
    <widget class="QMenu" name="menuEfectos">
     <property name="title">
@@ -510,9 +511,15 @@ p, li { white-space: pre-wrap; }
      </property>
      <addaction name="actionImagen_media"/>
     </widget>
+    <widget class="QMenu" name="menuV_deo_a_video">
+     <property name="title">
+      <string>Vídeo a video</string>
+     </property>
+     <addaction name="actionSuavizado_temporal"/>
+    </widget>
     <addaction name="menuImagen_a_v_deo"/>
     <addaction name="menuV_deo_a_imagen"/>
-    <addaction name="actionV_deo_a_video"/>
+    <addaction name="menuV_deo_a_video"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
     <property name="title">
@@ -633,11 +640,6 @@ p, li { white-space: pre-wrap; }
   <action name="actionMedia">
    <property name="text">
     <string>Media...</string>
-   </property>
-  </action>
-  <action name="actionV_deo_a_video">
-   <property name="text">
-    <string>Vídeo a video</string>
    </property>
   </action>
   <action name="actionRotar_imagen">
@@ -763,6 +765,16 @@ p, li { white-space: pre-wrap; }
   <action name="actionMostrar_informaci_n">
    <property name="text">
     <string>Mostrar información</string>
+   </property>
+  </action>
+  <action name="actionPerspectiva">
+   <property name="text">
+    <string>Perspectiva...</string>
+   </property>
+  </action>
+  <action name="actionSuavizado_temporal">
+   <property name="text">
+    <string>Suavizado temporal...</string>
    </property>
   </action>
  </widget>

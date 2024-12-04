@@ -975,14 +975,6 @@ void copiar_al_portapapeles(int nfoto) {
 
 //---------------------------------------------------------------------------
 
-string Lt1(string cadena)
-{
-    QString temp= QString::fromUtf8(cadena.c_str());
-    return temp.toLatin1().data();
-}
-
-//---------------------------------------------------------------------------
-
 
 void ver_histograma_2d(int nfoto, int canal1, int canal2, int nres, int bins) {
     Mat hist;
@@ -1048,4 +1040,35 @@ void mostrar_info_imagen(int nfoto) {
 
     Mat color_representation(100, 100, CV_8UC3, mean_color_bgr);
     imshow("Color medio", color_representation);
+}
+
+//---------------------------------------------------------------------------
+
+void ver_perspectiva(int norig, int ndest, Point2f ptorig[4], Point2f ptdest[4], bool guardar) {
+    Mat M = getPerspectiveTransform(ptorig, ptdest);
+    Mat res = foto[ndest].img.clone();
+    warpPerspective(foto[norig].img, res, M, res.size(), INTER_CUBIC, BORDER_TRANSPARENT);
+
+    if(guardar) {
+        res.copyTo(foto[ndest].img);
+        foto[ndest].modificada = true;
+    }
+
+    for(int i=0; i<4; i++) {
+        line(res, ptdest[i], ptdest[(i+1)%4], CV_RGB(255,255,255), 2);
+    }
+    for(int i=0; i<4; i++) {
+        circle(res,  ptdest[i], 8, CV_RGB(255,255,255), -1);
+        circle(res, ptdest[i], 6, CV_RGB(0,255,0), -1);
+    }
+
+    imshow("Perspectiva", res);
+}
+
+//---------------------------------------------------------------------------
+
+    string Lt1(string cadena)
+{
+    QString temp= QString::fromUtf8(cadena.c_str());
+    return temp.toLatin1().data();
 }

@@ -2,6 +2,7 @@
 
 #include "video.h"
 #include <math.h>
+#include "QMessageBox"
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES PRIVADAS               //////////////
@@ -133,4 +134,83 @@ void capturar_de_camara (int nres) {
     } else {
         cerr << "No se ha podido abrir la cámara";
     }
+}
+
+//---------------------------------------------------------------------------
+
+void callback_suavi(int evento, int x,int y, int flags, void *pt) {
+    if(evento==EVENT_CLOSE) {
+        int *pi = (int *) pt;
+        *pi = 0;
+    }
+}
+
+void suavizado_temporal(string nombre) {
+    //VideoCapture cap("C:/Users/javim/Pictures/vtest.avi");
+    VideoCapture cap(0);
+    // Descomentar
+
+    Mat frame;
+    if(!cap.isOpened() || !cap.read(frame)) {
+        QMessageBox::information(nullptr, "Error al abrir la cámara", "No se ha podido abrir la cámara");
+        return;
+    }
+
+    Mat media = frame.clone();
+
+    media.convertTo(media, CV_32F);
+
+    double alfa = 0;
+
+    int alfa_int = 50;
+
+    int seguir = 1;
+
+    int grabando = 0;
+
+    int tecla = -1;
+
+    VideoWriter wri(nombre, VideoWriter::fourcc('D','I','V','X'), 30, frame.size(), true);
+
+    if(!wri.isOpened()) {
+        QMessageBox::information(nullptr, "Error al crear el video", "No se ha podido crear el archivo del video");
+        return;
+    }
+
+    namedWindow("Pulse una tecla");
+
+    setMouseCallback("Pulse una tecla", callback_suavi, &seguir);
+
+    createTrackbar("Inercia", "Pulse una tecla", &alfa_int, 100);
+
+    while(cap.read(frame) && seguir) {
+        tecla = waitKey(1);
+        if(tecla==27) {
+            break;
+        } else if(tecla!=-1) {
+            if(!grabando) {
+                grabando=1;
+            } else {
+                break;
+            }
+        }
+
+        frame.convertTo(frame, CV_32F);
+        alfa = alfa_int/100.0;
+        addWeighted(media, alfa, frame, 1 - alfa, 0, media);
+        Mat res;
+        media.convertTo(res, CV_8U);
+
+        if(grabando) {
+            wri.write(res);
+            circle(res, Point(res.cols/2+4, 50+4), 10, CV_RGB(0, 0, 0), -1);
+            circle(res, Point(res.cols/2, 50), 10, CV_RGB(255, 0, 0), -1);
+        }
+
+        //flip(res, res, 1);
+
+        imshow("Pulse una tecla", res);
+    }
+    destroyWindow("Pulse una tecla");
+    wri.release();
 }
