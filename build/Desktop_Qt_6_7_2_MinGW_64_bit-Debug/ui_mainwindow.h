@@ -76,6 +76,7 @@ public:
     QAction *actionPerspectiva;
     QAction *actionSuavizado_temporal;
     QAction *actionTrazos;
+    QAction *actionSuavizado;
     QWidget *centralWidget;
     QToolButton *toolButton;
     QToolButton *toolButton_2;
@@ -92,6 +93,7 @@ public:
     QToolButton *toolButton_8;
     QToolButton *toolButton_9;
     QToolButton *toolButton_10;
+    QToolButton *toolButton_11;
     QMenuBar *menuBar;
     QMenu *menuArchivo;
     QMenu *menuEdici_n;
@@ -218,6 +220,8 @@ public:
         actionSuavizado_temporal->setObjectName("actionSuavizado_temporal");
         actionTrazos = new QAction(MainWindow);
         actionTrazos->setObjectName("actionTrazos");
+        actionSuavizado = new QAction(MainWindow);
+        actionSuavizado->setObjectName("actionSuavizado");
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName("centralWidget");
         toolButton = new QToolButton(centralWidget);
@@ -333,6 +337,12 @@ public:
         toolButton_10->setIcon(icon5);
         toolButton_10->setCheckable(true);
         toolButton_10->setAutoExclusive(true);
+        toolButton_11 = new QToolButton(centralWidget);
+        toolButton_11->setObjectName("toolButton_11");
+        toolButton_11->setGeometry(QRect(410, 0, 41, 41));
+        toolButton_11->setIcon(icon4);
+        toolButton_11->setCheckable(true);
+        toolButton_11->setAutoExclusive(true);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName("menuBar");
@@ -413,6 +423,7 @@ public:
         menuHerramientas->addAction(actionElipse);
         menuHerramientas->addAction(actionSeleccionar);
         menuHerramientas->addAction(actionTrazos);
+        menuHerramientas->addAction(actionSuavizado);
         menuTransformar->addAction(actionBrillo_contraste);
         menuTransformar->addAction(actionVer_ajuste_lineal_del_histograma);
         menuTransformar->addAction(actionInvertir);
@@ -495,6 +506,7 @@ public:
         actionPerspectiva->setText(QCoreApplication::translate("MainWindow", "Perspectiva...", nullptr));
         actionSuavizado_temporal->setText(QCoreApplication::translate("MainWindow", "Suavizado temporal...", nullptr));
         actionTrazos->setText(QCoreApplication::translate("MainWindow", "Trazos", nullptr));
+        actionSuavizado->setText(QCoreApplication::translate("MainWindow", "Suavizado", nullptr));
         toolButton->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         toolButton_2->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -516,6 +528,7 @@ public:
         toolButton_8->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         toolButton_9->setText(QCoreApplication::translate("MainWindow", "ARCOIRIS", nullptr));
         toolButton_10->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
+        toolButton_11->setText(QCoreApplication::translate("MainWindow", "...", nullptr));
         menuArchivo->setTitle(QCoreApplication::translate("MainWindow", "Archivo", nullptr));
         menuEdici_n->setTitle(QCoreApplication::translate("MainWindow", "Edici\303\263n", nullptr));
         menuOpciones->setTitle(QCoreApplication::translate("MainWindow", "Opciones", nullptr));

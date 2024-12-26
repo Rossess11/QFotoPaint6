@@ -407,6 +407,29 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QToolButton" name="toolButton_11">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="recursos.qrc">
+      <normaloff>:/imagenes/punto.png</normaloff>:/imagenes/punto.png</iconset>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -480,6 +503,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionElipse"/>
     <addaction name="actionSeleccionar"/>
     <addaction name="actionTrazos"/>
+    <addaction name="actionSuavizado"/>
    </widget>
    <widget class="QMenu" name="menuTransformar">
     <property name="title">
@@ -804,6 +828,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionTrazos">
    <property name="text">
     <string>Trazos</string>
+   </property>
+  </action>
+  <action name="actionSuavizado">
+   <property name="text">
+    <string>Suavizado</string>
    </property>
   </action>
  </widget>

@@ -540,6 +540,40 @@ void reset_trazo_continuo()
 
 //---------------------------------------------------------------------------
 
+void cb_suavizar_circular(int factual, int x, int y)
+{
+    Mat im = foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
+    int tam = radio_pincel + difum_pincel;
+    int posx = tam, posy = tam;
+    Rect roi(x - tam, y - tam, 2 * tam + 1, 2 * tam + 1);
+    if (roi.x < 0) {
+        roi.width += roi.x;
+        posx += roi.x;
+        roi.x = 0;
+    }
+    if (roi.y < 0) {
+        roi.height += roi.y;
+        posy += roi.y;
+        roi.y = 0;
+    }
+    if (roi.x + roi.width > im.cols) {
+        roi.width = im.cols - roi.x;
+    }
+    if (roi.y + roi.height > im.rows) {
+        roi.height = im.rows - roi.y;
+    }
+    Mat trozo = im(roi);
+    Mat mask(roi.size(), CV_8UC1, Scalar(0));
+    circle(mask, Point(posx, posy), radio_pincel, Scalar(255), -1, LINE_AA);
+    Mat suavizado;
+    GaussianBlur(trozo, suavizado, Size(difum_pincel * 2 + 1, difum_pincel * 2 + 1), 0);
+    suavizado.copyTo(trozo, mask);
+    imshow(foto[factual].nombre, im);
+    foto[factual].modificada = true;
+}
+
+//---------------------------------------------------------------------------
+
 void callback (int event, int x, int y, int flags, void *_nfoto)
 {
     int factual= (long long) _nfoto;
@@ -628,6 +662,15 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
             cb_trazo_continuo(factual, x, y);
         else if (event == EVENT_LBUTTONUP)
             cb_trazo_continuo(factual, x, y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
+    // 2.8 Herramienta SUAVIZAR CIRCULAR
+    case HER_SUAVIZAR_CIRCULAR:
+        if (event == EVENT_LBUTTONUP)
+            cb_suavizar_circular(factual, x, y);
+        else if (event == EVENT_MOUSEMOVE && flags == EVENT_FLAG_LBUTTON)
+            cb_suavizar_circular(factual, x, y);
         else
             ninguna_accion(factual, x, y);
         break;
@@ -1120,7 +1163,6 @@ void ver_perspectiva(int norig, int ndest, Point2f ptorig[4], Point2f ptdest[4],
 
     imshow("Perspectiva", res);
 }
-
 
 
 //---------------------------------------------------------------------------

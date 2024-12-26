@@ -603,3 +603,16 @@ void MainWindow::on_actionTrazos_triggered()
     reset_trazo_continuo();
 }
 
+
+void MainWindow::on_toolButton_11_clicked()
+{
+    herr_actual = HER_SUAVIZAR_CIRCULAR;
+}
+
+
+void MainWindow::on_actionSuavizado_triggered()
+{
+    herr_actual = HER_SUAVIZAR_CIRCULAR;
+    ui->toolButton_11->setChecked(true);
+}
+
