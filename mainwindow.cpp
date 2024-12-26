@@ -588,3 +588,18 @@ void MainWindow::on_actionSuavizado_temporal_triggered()
     }
 }
 
+
+void MainWindow::on_toolButton_10_clicked()
+{
+    herr_actual = HER_TRAZOCONTINUO;
+    reset_trazo_continuo();
+}
+
+
+void MainWindow::on_actionTrazos_triggered()
+{
+    herr_actual = HER_TRAZOCONTINUO;
+    ui->toolButton_10->setChecked(true);
+    reset_trazo_continuo();
+}
+

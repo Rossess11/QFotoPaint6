@@ -9,6 +9,8 @@
 #include <opencv2/core.hpp>
 #include <QClipboard>
 #include <QGuiApplication>
+#include <QLabel>
+#include <QVBoxLayout>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -223,6 +225,7 @@ void activar_callback_fotos (bool activo)
 
 static int downx, downy;
 // Posición inicial del ratón al pinchar sobre la imagen actual
+static Point prev_point(-1, -1);
 
 //---------------------------------------------------------------------------
 
@@ -504,6 +507,39 @@ void cb_ver_seleccion (int factual, int x, int y, bool foto_roi)
 
 //---------------------------------------------------------------------------
 
+void cb_trazo_continuo(int factual, int x, int y)
+{
+    Mat im = foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
+
+    if (prev_point.x == -1 && prev_point.y == -1) {
+        prev_point = Point(x, y);
+    }
+
+    if (difum_pincel == 0) {
+        line(im, prev_point, Point(x, y), color_pincel, radio_pincel * 2 + 1, LINE_AA);
+    } else {
+        Mat res(im.size(), im.type(), color_pincel);
+        Mat cop(im.size(), im.type(), CV_RGB(0, 0, 0));
+        line(cop, prev_point, Point(x, y), CV_RGB(255, 255, 255), radio_pincel * 2 + 1, LINE_AA);
+        blur(cop, cop, Size(difum_pincel * 2 + 1, difum_pincel * 2 + 1));
+        multiply(res, cop, res, 1.0 / 255.0);
+        bitwise_not(cop, cop);
+        multiply(im, cop, im, 1.0 / 255.0);
+        im = res + im;
+    }
+
+    imshow(foto[factual].nombre, im);
+    foto[factual].modificada = true;
+    prev_point = Point(x, y);
+}
+
+void reset_trazo_continuo()
+{
+    prev_point = Point(-1, -1);
+}
+
+//---------------------------------------------------------------------------
+
 void callback (int event, int x, int y, int flags, void *_nfoto)
 {
     int factual= (long long) _nfoto;
@@ -583,6 +619,15 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
             cb_elipse(factual, x, y);
         else if (event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
             cb_ver_elipse(factual, x, y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
+        // 2.7 Herramienta TRAZO CONTINUO
+    case HER_TRAZOCONTINUO:
+        if (flags == EVENT_FLAG_LBUTTON && event != EVENT_LBUTTONUP)
+            cb_trazo_continuo(factual, x, y);
+        else if (event == EVENT_LBUTTONUP)
+            cb_trazo_continuo(factual, x, y);
         else
             ninguna_accion(factual, x, y);
         break;
@@ -1036,10 +1081,21 @@ void mostrar_info_imagen(int nfoto) {
                    .arg(mean_color_bgr[1])
                    .arg(mean_color_bgr[2]);
 
-    QMessageBox::information(w, "Información de la imagen", info);
-
     Mat color_representation(100, 100, CV_8UC3, mean_color_bgr);
-    imshow("Color medio", color_representation);
+    QImage color_representation_qimg(color_representation.data, color_representation.cols, color_representation.rows, color_representation.step, QImage::Format_BGR888);
+    QPixmap color_representation_pixmap = QPixmap::fromImage(color_representation_qimg);
+    QLabel* color_label = new QLabel();
+    color_label->setPixmap(color_representation_pixmap);
+
+    QVBoxLayout* layout = new QVBoxLayout();
+    layout->addWidget(new QLabel(info));
+    layout->addWidget(color_label);
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Información de la imagen");
+    msgBox.setText(info);
+    msgBox.setIconPixmap(color_representation_pixmap);
+    msgBox.exec();
 }
 
 //---------------------------------------------------------------------------
@@ -1064,6 +1120,8 @@ void ver_perspectiva(int norig, int ndest, Point2f ptorig[4], Point2f ptdest[4],
 
     imshow("Perspectiva", res);
 }
+
+
 
 //---------------------------------------------------------------------------
 

@@ -40,7 +40,7 @@ struct ventana {
 //    Enumerado con los distintos tipos posibles de herramientas
 //    que se pueden usar. Añadir nuevas aquí
 
-enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS};
+enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS, HER_TRAZOCONTINUO};
 
 
 ///////////////////////////////////////////////////////////////////
@@ -196,6 +196,10 @@ void mostrar_info_imagen(int nfoto);
 
 void ver_perspectiva(int norig, int ndest, Point2f ptorig[4], Point2f ptdest[4], bool guardar = false);
 // Transformacion perpectiva...
+
+void reset_trazo_continuo();
+// Funcion para restablecer el punto origen del trazo entre llamadas
+
 
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1

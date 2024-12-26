@@ -85,6 +85,8 @@ private slots:
     void on_actionMostrar_informaci_n_triggered();
     void on_actionPerspectiva_triggered();
     void on_actionSuavizado_temporal_triggered();
+    void on_toolButton_10_clicked();
+    void on_actionTrazos_triggered();
 };
 
 extern MainWindow *w;
